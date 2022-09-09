@@ -1,0 +1,24 @@
+---
+title: "R and Docker"
+subtitle: "Warwick R User Group"
+author: "James Tripp"
+institute: Senior Research Software Engineer, IT Services (University of Warwick)
+format: 
+    revealjs:
+        theme: [default, css/warwick.scss, css/warwick-fonts.scss]
+        footer: test.com
+        transition: slide
+
+---
+
+# Plan
+
+1. R and Docker
+2. What is Docker?
+3. How do I do this?
+
+# R and Docker
+
+# What is Docker?
+
+# How do I do this?
