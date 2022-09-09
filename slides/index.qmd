@@ -8,17 +8,23 @@ format:
         theme: [default, css/warwick.scss, css/warwick-fonts.scss]
         footer: https://jamestripp.github.io/WRUG-RandDocker/
         transition: slide
-
+bibliography: references.bib
 ---
 
 # Plan
 
-1. R and Docker
-2. What is Docker?
-3. How do I do this?
+1.  R and Docker
+2.  What is Docker?
+3.  How do I do this?
 
 # R and Docker
+
+How is docker used with R?
+
+[@marwick2018]
 
 # What is Docker?
 
 # How do I do this?
+
+# References
