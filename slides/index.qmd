@@ -6,7 +6,7 @@ institute: Senior Research Software Engineer, IT Services (University of Warwick
 format: 
     revealjs:
         theme: [default, css/warwick.scss, css/warwick-fonts.scss]
-        footer: test.com
+        footer: https://jamestripp.github.io/WRUG-RandDocker/
         transition: slide
 
 ---
