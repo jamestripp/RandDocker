@@ -2,6 +2,7 @@
 title: "R and Docker"
 subtitle: "Warwick R User Group"
 author: "James Tripp"
+
 institute: Senior Research Software Engineer, IT Services (University of Warwick)
 format: 
     revealjs:
@@ -11,20 +12,121 @@ format:
 bibliography: references.bib
 ---
 
-# Plan
+# Docker
 
-1.  R and Docker
-2.  What is Docker?
-3.  How do I do this?
+## What?
 
-# R and Docker
+* Download the desktop application [here]()
+* Creates an isolated Linux System
+* Existing images can be downloaded. [The Rocker Project](https://rocker-project.org/) offers some R images
+* Details of the Rocker project images are [here](https://rocker-project.org/images/)
 
-How is docker used with R?
+## Downloading a base image
 
-[@marwick2018]
+::: columns 
+::: {.column width="50%"}
 
-# What is Docker?
+* Command line interface
+* To download and run the official R image
 
-# How do I do this?
+```{bash}
+docker run --rm -ti r-base
+```
+
+:::
+
+::: {.column width="50%"}
+![](images/r-base.png)
+:::
+:::
+
+::: {.callout-note appearance="simple"}
+
+The command line options are to remove the container on exit (-rm) and to create a command line interface with interactivity (-ti)
+
+:::
+
+## Downloading an RStudio Rocker image
+
+```{bash}
+docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio
+```
+
+::: columns 
+::: {.column width="50%"}
+
+* From the command line
+
+* Open a browser and go to localhost:8787 and log in with the username rstudio and password yourpassword
+:::
+
+::: {.column width="50%"}
+![](images/rstudio_container.png)
+:::
+:::
+
+::: {.callout-note appearance="simple"}
+
+Command line options are remove the container on exit (-rm), create a command line interface (-ti), set environment variables (-e) and set the port (-p) so that connecting via port 8787 will connect to port 8787 in the container.
+
+:::
+
+## Local folder
+
+* You can make a local folder available to the container
+
+Bit about volumes
+
+All your students or fellow researchers could use the same image
+
+## Making an image
+
+Images are created using a text file
+
+The file provides instructions for creating an image
+
+Go through image example
+
+# Why?
+
+## Developers
+
+* Software developers sometime wrote code which only ran on their machine
+* That could be a problem
+
+![](images/works_on_my_machine.jpeg)
+
+## Developers
+
+![](images/docker_born.png)
+
+## Developers
+
+* Developers could build and update images
+* These image are used in production
+* Like containers on a ship
+
+![](images/moby-logo.png)
+
+## Researchers
+
+Go through examples in research
+
+## Researchers
+
+Talk about advantages for research user cases
+
+# How?
+
+## Worked R example
+
+Detail a simple R example building on R base
+
+## R packages
+
+Containerit
+other R packages
+
+## Comparison
 
 # References
