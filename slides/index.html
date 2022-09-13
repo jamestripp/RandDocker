@@ -394,33 +394,61 @@
   <p class="institute">Senior Research Software Engineer, IT Services (University of Warwick)</p>
 </section>
 
+<section id="plan" class="title-slide slide level1 center">
+<h1>Plan</h1>
+<ul>
+<li>Docker?</li>
+<li>Why?</li>
+<li>Tools and next steps</li>
+</ul>
+</section>
+
 <section>
-<section id="docker" class="title-slide slide level1 center">
+<section id="docker" class="title-slide slide level1 center" data-background-color="#2780e3">
 <h1>Docker</h1>
 
 </section>
 <section id="what" class="slide level2">
 <h2>What?</h2>
+<div>
 <ul>
-<li>Download the desktop application <a href="">here</a></li>
-<li>Creates an isolated Linux System</li>
-<li>Existing images can be downloaded. <a href="https://rocker-project.org/">The Rocker Project</a> offers some R images</li>
-<li>Details of the Rocker project images are <a href="https://rocker-project.org/images/">here</a></li>
+<li class="fragment">Download the desktop application <a href="https://www.docker.com/products/docker-desktop/">here</a></li>
+<li class="fragment">Docker creates or downloads existing <strong>images</strong></li>
+<li class="fragment">Containers are created from images and are isolated compute environments</li>
 </ul>
-</section>
-<section id="downloading-a-base-image" class="slide level2">
-<h2>Downloading a base image</h2>
+</div>
+
+<img data-src="images/Docker_images.svg" class="r-stretch quarto-figure-center"></section>
+<section id="prebuilt-images" class="slide level2">
+<h2>Prebuilt images</h2>
+<ul>
+<li>The R project has an <a href="https://hub.docker.com/_/r-base/">official r-base image</a></li>
+<li>The Rocker Project</li>
+</ul>
+
+<img data-src="images/rocker_versioned_images.png" class="r-stretch quarto-figure-center"></section>
+<section id="base-image" class="slide level2">
+<h2>Base image</h2>
+<p>To download and run the official r-base image</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>docker run --rm -ti r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li>Command line interface</li>
-<li>To download and run the official R image</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>docker run --rm -ti r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="images/r-base.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ol type="1">
+<li><p>Image downloaded</p></li>
+<li><p>Container created from image</p></li>
+<li><p>Terminal enters container</p></li>
+</ol>
 </div>
 </div>
+</div>
+<div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -431,18 +459,21 @@
 </div>
 </div>
 </div>
+</div>
 </section>
-<section id="downloading-an-rstudio-rocker-image" class="slide level2">
-<h2>Downloading an RStudio Rocker image</h2>
+<section id="rstudio-image" class="slide level2">
+<h2>RStudio image</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li><p>From the command line</p></li>
-<li><p>Open a browser and go to localhost:8787 and log in with the username rstudio and password yourpassword</p></li>
-</ul>
-</div><div class="column" style="width:50%;">
 <p><img data-src="images/rstudio_container.png"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Downloads image, creates and terminal enters container</p></li>
+<li><p>The container provides access to RStudio via localhost:8787</p></li>
+<li><p>You now have an isolated RStudio install</p></li>
+</ul>
 </div>
 </div>
 <div class="callout callout-note callout-style-simple">
@@ -455,7 +486,22 @@
 </div>
 </div>
 </div>
+</div>
 </section>
+<section id="custom-images" class="slide level2">
+<h2>Custom images</h2>
+<p>Docker images are created from dockerfiles. A sample dockerfile is below<sup>1</sup>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {text} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>FROM rocker/verse:3.5.2</span>
+<span id="cb3-2"><a href="#cb3-2"></a>LABEL maintainer="o2r"</span>
+<span id="cb3-3"><a href="#cb3-3"></a># CRAN packages skipped because they are in the base image: knitr</span>
+<span id="cb3-4"><a href="#cb3-4"></a>RUN ["install2.r", "fortunes"]</span>
+<span id="cb3-5"><a href="#cb3-5"></a>WORKDIR /payload/</span>
+<span id="cb3-6"><a href="#cb3-6"></a>CMD ["R"]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To build the image, go to the folder containing the dockerfile and run.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>docker build -t jamestripp/myimage .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, to create a container and jump into it.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>docker run --rm -ti jamestripp/myimage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Sample taken from <a href="https://github.com/o2r-project/containerit">https://github.com/o2r-project/containerit</a></p></li></ol></aside></section>
 <section id="local-folder" class="slide level2">
 <h2>Local folder</h2>
 <ul>
@@ -463,12 +509,6 @@
 </ul>
 <p>Bit about volumes</p>
 <p>All your students or fellow researchers could use the same image</p>
-</section>
-<section id="making-an-image" class="slide level2">
-<h2>Making an image</h2>
-<p>Images are created using a text file</p>
-<p>The file provides instructions for creating an image</p>
-<p>Go through image example</p>
 </section></section>
 <section>
 <section id="why" class="title-slide slide level1 center">
@@ -482,7 +522,7 @@
 <li>That could be a problem</li>
 </ul>
 
-<img data-src="images/works_on_my_machine.jpeg" class="r-stretch"></section>
+<img data-src="images/works_on_my_machine.jpeg" class="r-stretch quarto-figure-center"></section>
 <section id="developers-1" class="slide level2">
 <h2>Developers</h2>
 
@@ -495,7 +535,7 @@
 <li>Like containers on a ship</li>
 </ul>
 
-<img data-src="images/moby-logo.png" class="r-stretch"></section>
+<img data-src="images/moby-logo.png" class="r-stretch quarto-figure-center"></section>
 <section id="researchers" class="slide level2">
 <h2>Researchers</h2>
 <p>Go through examples in research</p>
@@ -503,22 +543,27 @@
 <section id="researchers-1" class="slide level2">
 <h2>Researchers</h2>
 <p>Talk about advantages for research user cases</p>
+</section>
+<section id="really" class="slide level2">
+<h2>Really?</h2>
+<p>Compare with other solutions Mention heavy Concerns about building images, note good practices reference Need to understand images</p>
 </section></section>
 <section>
-<section id="how" class="title-slide slide level1 center">
-<h1>How?</h1>
+<section id="tools-and-next-steps" class="title-slide slide level1 center">
+<h1>Tools and next steps</h1>
 
 </section>
-<section id="worked-r-example" class="slide level2">
-<h2>Worked R example</h2>
-<p>Detail a simple R example building on R base</p>
+<section id="containers" class="slide level2">
+<h2>Containers</h2>
+<p>Singularity Podman</p>
 </section>
-<section id="r-packages" class="slide level2">
-<h2>R packages</h2>
-<p>Containerit other R packages</p>
+<section id="r-tools" class="slide level2">
+<h2>R tools</h2>
+<p>Package to manage docker containeres ContainerIt Other packages?</p>
 </section>
-<section id="comparison" class="slide level2">
-<h2>Comparison</h2>
+<section id="going-further" class="slide level2">
+<h2>Going further</h2>
+<p>Binder CI pipelines using virtual environments</p>
 </section></section>
 <section id="references" class="title-slide slide level1 center">
 <h1>References</h1>
@@ -526,6 +571,8 @@
 <p>https://jamestripp.github.io/WRUG-RandDocker/</p>
 </div>
 </section>
+
+
     </div>
   </div>
 
@@ -690,7 +737,7 @@
 
         // Transition style for full page slide backgrounds
         // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
+        backgroundTransition: 'fade',
 
         // Number of slides away from the current that are visible
         viewDistance: 3,

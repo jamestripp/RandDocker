@@ -9,36 +9,64 @@ format:
         theme: [default, css/warwick.scss, css/warwick-fonts.scss]
         footer: https://jamestripp.github.io/WRUG-RandDocker/
         transition: slide
+        background-transition: fade
 bibliography: references.bib
 ---
 
-# Docker
+# Plan
+
+* Docker?
+* Why?
+* Tools and next steps
+
+# Docker {background-color="#2780e3"}
 
 ## What?
 
-* Download the desktop application [here]()
-* Creates an isolated Linux System
-* Existing images can be downloaded. [The Rocker Project](https://rocker-project.org/) offers some R images
-* Details of the Rocker project images are [here](https://rocker-project.org/images/)
+::: incremental
+* Download the desktop application [here](https://www.docker.com/products/docker-desktop/)
+* Docker creates or downloads existing **images**
+* Containers are created from images and are isolated compute environments 
+:::
 
-## Downloading a base image
+![](images/Docker_images.svg){fig-align="center"}
 
-::: columns 
-::: {.column width="50%"}
+## Prebuilt images
 
-* Command line interface
-* To download and run the official R image
+* The R project has an [official r-base image](https://hub.docker.com/_/r-base/)
+* The Rocker Project
+
+![](images/rocker_versioned_images.png){fig-align="center"}
+
+## Base image
+
+To download and run the official r-base image
 
 ```{bash}
 docker run --rm -ti r-base
 ```
 
+. . .
+
+::: columns 
+::: {.column width="50%"}
+
+![](images/r-base.png){fig-align="center"}
+
 :::
 
 ::: {.column width="50%"}
-![](images/r-base.png)
+
+1. Image downloaded
+
+2. Container created from image
+
+3. Terminal enters container
+
 :::
 :::
+
+. . .
 
 ::: {.callout-note appearance="simple"}
 
@@ -46,23 +74,33 @@ The command line options are to remove the container on exit (-rm) and to create
 
 :::
 
-## Downloading an RStudio Rocker image
+
+## RStudio image
 
 ```{bash}
 docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio
 ```
 
+. . .
+
 ::: columns 
-::: {.column width="50%"}
-
-* From the command line
-
-* Open a browser and go to localhost:8787 and log in with the username rstudio and password yourpassword
-:::
 
 ::: {.column width="50%"}
+
 ![](images/rstudio_container.png)
+
 :::
+
+::: {.column width="50%"}
+
+* Downloads image, creates and terminal enters container
+
+* The container provides access to RStudio via localhost:8787
+
+* You now have an isolated RStudio install
+
+:::
+
 :::
 
 ::: {.callout-note appearance="simple"}
@@ -70,6 +108,33 @@ docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio
 Command line options are remove the container on exit (-rm), create a command line interface (-ti), set environment variables (-e) and set the port (-p) so that connecting via port 8787 will connect to port 8787 in the container.
 
 :::
+
+## Custom images
+
+Docker images are created from dockerfiles. A sample dockerfile is below[^1].
+
+```{text}
+FROM rocker/verse:3.5.2
+LABEL maintainer="o2r"
+# CRAN packages skipped because they are in the base image: knitr
+RUN ["install2.r", "fortunes"]
+WORKDIR /payload/
+CMD ["R"]
+```
+
+To build the image, go to the folder containing the dockerfile and run.
+
+```{bash}
+docker build -t jamestripp/myimage .
+```
+
+Finally, to create a container and jump into it.
+
+```{bash}
+docker run --rm -ti jamestripp/myimage
+```
+
+[^1]: Sample taken from [https://github.com/o2r-project/containerit](https://github.com/o2r-project/containerit)
 
 ## Local folder
 
@@ -79,14 +144,6 @@ Bit about volumes
 
 All your students or fellow researchers could use the same image
 
-## Making an image
-
-Images are created using a text file
-
-The file provides instructions for creating an image
-
-Go through image example
-
 # Why?
 
 ## Developers
@@ -94,7 +151,7 @@ Go through image example
 * Software developers sometime wrote code which only ran on their machine
 * That could be a problem
 
-![](images/works_on_my_machine.jpeg)
+![](images/works_on_my_machine.jpeg){fig-align="center"}
 
 ## Developers
 
@@ -106,7 +163,7 @@ Go through image example
 * These image are used in production
 * Like containers on a ship
 
-![](images/moby-logo.png)
+![](images/moby-logo.png){fig-align="center"}
 
 ## Researchers
 
@@ -116,17 +173,30 @@ Go through examples in research
 
 Talk about advantages for research user cases
 
-# How?
+## Really?
 
-## Worked R example
+Compare with other solutions
+Mention heavy
+Concerns about building images, note good practices reference
+Need to understand images
 
-Detail a simple R example building on R base
+# Tools and next steps
 
-## R packages
+## Containers
 
-Containerit
-other R packages
+Singularity
+Podman
 
-## Comparison
+## R tools
+
+Package to manage docker containeres
+ContainerIt
+Other packages?
+
+## Going further
+
+Binder
+CI pipelines using virtual environments
+
 
 # References
