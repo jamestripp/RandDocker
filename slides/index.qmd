@@ -15,28 +15,33 @@ bibliography: references.bib
 
 # Plan
 
-* Docker?
-* Why?
-* Tools and next steps
+-   Docker?
+-   Why?
+-   Next Steps
 
 # Docker {background-color="#2780e3"}
 
 ## What?
 
 ::: incremental
-* Download the desktop application [here](https://www.docker.com/products/docker-desktop/)
-* Docker creates or downloads existing **images**
-* Containers are created from images and are isolated compute environments 
+-   Download the desktop application [here](https://www.docker.com/products/docker-desktop/)
+-   Docker creates or downloads existing **images**
+-   Containers are created from images and are isolated compute environments
 :::
 
 ![](images/Docker_images.svg){fig-align="center"}
 
 ## Prebuilt images
 
-* The R project has an [official r-base image](https://hub.docker.com/_/r-base/)
-* The Rocker Project
-
-![](images/rocker_versioned_images.png){fig-align="center"}
+::: incremental
+-   The R project has an [official r-base image](https://hub.docker.com/_/r-base/)
+-   Images from the [Rocker Project](https://rocker-project.org/images/):
+    -   rocker/r-ver - alternative to r-base
+    -   rocker/rstudio - R and RStudio
+    -   rocker/tidyverse- R and tidyverse packages
+    -   rocker/shiny - Shiny server built in
+    -   many others
+:::
 
 ## Base image
 
@@ -48,32 +53,25 @@ docker run --rm -ti r-base
 
 . . .
 
-::: columns 
+::: columns
 ::: {.column width="50%"}
-
 ![](images/r-base.png){fig-align="center"}
-
 :::
 
 ::: {.column width="50%"}
+1.  Image downloaded
 
-1. Image downloaded
+2.  Container created from image
 
-2. Container created from image
-
-3. Terminal enters container
-
+3.  Terminal enters container
 :::
 :::
 
 . . .
 
 ::: {.callout-note appearance="simple"}
-
 The command line options are to remove the container on exit (-rm) and to create a command line interface with interactivity (-ti)
-
 :::
-
 
 ## RStudio image
 
@@ -83,37 +81,35 @@ docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio
 
 . . .
 
-::: columns 
-
+::: columns
 ::: {.column width="50%"}
-
 ![](images/rstudio_container.png)
-
 :::
 
 ::: {.column width="50%"}
+-   Downloads image, creates and terminal enters container
 
-* Downloads image, creates and terminal enters container
+-   The container provides access to RStudio via localhost:8787
 
-* The container provides access to RStudio via localhost:8787
-
-* You now have an isolated RStudio install
-
+-   You now have an isolated RStudio install
+:::
 :::
 
-:::
+. . .
 
 ::: {.callout-note appearance="simple"}
-
 Command line options are remove the container on exit (-rm), create a command line interface (-ti), set environment variables (-e) and set the port (-p) so that connecting via port 8787 will connect to port 8787 in the container.
-
 :::
 
 ## Custom images
 
-Docker images are created from dockerfiles. A sample dockerfile is below[^1].
+-   Docker images are created from dockerfiles. A sample dockerfile is below[^1].
 
-```{text}
+[^1]: Sample taken from <https://github.com/o2r-project/containerit>
+
+. . .
+
+``` {.python code-line-numbers="1-6|1-2|3-4|5|6|1-6"}
 FROM rocker/verse:3.5.2
 LABEL maintainer="o2r"
 # CRAN packages skipped because they are in the base image: knitr
@@ -122,81 +118,123 @@ WORKDIR /payload/
 CMD ["R"]
 ```
 
-To build the image, go to the folder containing the dockerfile and run.
+. . .
+
+-   To build the image, go to the folder containing the dockerfile and run.
 
 ```{bash}
 docker build -t jamestripp/myimage .
 ```
 
-Finally, to create a container and jump into it.
+. . .
+
+-   Finally, to create a container and jump into it.
 
 ```{bash}
 docker run --rm -ti jamestripp/myimage
 ```
 
-[^1]: Sample taken from [https://github.com/o2r-project/containerit](https://github.com/o2r-project/containerit)
+. . .
 
-## Local folder
+-   You can publish images to the Docker Hub (or another registry) for others to use (see instructions [here](https://jsta.github.io/r-docker-tutorial/04-Dockerhub.html) and [here](https://docs.docker.com/docker-hub/))
 
-* You can make a local folder available to the container
+## Local files
 
-Bit about volumes
+-   You can also copy files when an image is created
 
-All your students or fellow researchers could use the same image
+``` {.python code-line-numbers="1-4"}
+FROM r-base
+COPY . /usr/local/src/myscripts
+WORKDIR /usr/local/src/myscripts
+CMD ["Rscript", "myscript.R"]
+```
+
+. . .
+
+-   Volumes are folders on your local file system which are accessible to containers
+
+```{bash}
+docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 -v  $(pwd):/home/rstudio/data rocker/rstudio
+```
 
 # Why?
 
 ## Developers
 
-* Software developers sometime wrote code which only ran on their machine
-* That could be a problem
+-   Software developers sometimes wrote code which only ran on their machine
+-   That could be a problem
+
+. . .
 
 ![](images/works_on_my_machine.jpeg){fig-align="center"}
 
 ## Developers
 
-![](images/docker_born.png)
+![](images/docker_born.png){fig-align="center"}
 
 ## Developers
 
-* Developers could build and update images
-* These image are used in production
-* Like containers on a ship
+-   Developers could build and update images
+-   These image are used in production
+-   Like containers on a ship
 
 ![](images/moby-logo.png){fig-align="center"}
 
 ## Researchers
 
-Go through examples in research
+How does this help research?
+
+. . .
+
+-   Aids computational reproducibility [@boettiger2015]
+
+. . .
+
+-   Allows other to run code without having to install lots of dependencies [@eglen2017a]
+
+. . .
+
+-   Language agnostic and used widely [@pittard2020]
+
+. . .
+
+-   Provides the basis for technologies like the research compendium [@marwick2018], binder [@getstar] and Dev Containers [@smith2022]
 
 ## Researchers
 
-Talk about advantages for research user cases
+A few points to consider:
 
-## Really?
+. . .
 
-Compare with other solutions
-Mention heavy
-Concerns about building images, note good practices reference
-Need to understand images
+-   Smaller images with very little software may be preferable as these are easier to maintain [@gruening2019]
+
+
+. . .
+
+-   Build on a trustworthy base images such as the Rocker images [@boettiger2017]. Do we need to understand how the image is configured? For instance, the rocker/r-ver_4.2.1 dockerfile is [here](https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.2.1.Dockerfile)
+
+. . .
+
+-   If you do not need a full container. Perhaps automagic or renv, which captures the R version and libraries, is enough
 
 # Tools and next steps
 
 ## Containers
 
-Singularity
-Podman
+Singularity Podman
 
 ## R tools
 
-Package to manage docker containeres
-ContainerIt
-Other packages?
+Package to manage docker containeres ContainerIt Other packages?
 
 ## Going further
 
-Binder
-CI pipelines using virtual environments
+Binder CI pipelines using virtual environments
 
+## Overview
+
+-   point 1
+-   point 2
+-   point 3
 
 # References
