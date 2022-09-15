@@ -15,9 +15,72 @@ bibliography: references.bib
 
 # Plan
 
--   Docker?
 -   Why?
+-   Docker?
 -   Next Steps
+
+# Why?
+
+## Developers
+
+-   Software developers sometimes wrote code which only ran on their machine
+-   That could be a problem
+
+. . .
+
+![](images/works_on_my_machine.jpeg){fig-align="center"}
+
+## Developers
+
+![](images/docker_born.png){fig-align="center"}
+
+## Developers
+
+-   Developers could build and update images
+-   These image are used in production
+-   Like containers on a ship
+
+![](images/moby-logo.png){fig-align="center"}
+
+## Researchers
+
+How does this help research?
+
+. . .
+
+-   Aids computational reproducibility [@boettiger2015]
+
+. . .
+
+-   Allows other to run code without having to install lots of dependencies [@eglen2017a]
+
+. . .
+
+-   Language agnostic and used widely [@pittard2020]
+
+. . .
+
+-   Provides the basis for technologies like the research compendium [@marwick2018], binder [@getstar] and Dev Containers [@smith2022]
+
+## Researchers
+
+A few points to consider:
+
+. . .
+
+-   Smaller images with very little software may be preferable as these are easier to maintain [@gruening2019]
+
+. . .
+
+-   Use trustworthy images such as Rocker images [@boettiger2017].
+
+. . .
+
+-   Do we need to understand how the image is configured? For instance, the rocker/r-ver_4.2.1 dockerfile is [here](https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.2.1.Dockerfile)
+
+. . .
+
+-   Perhaps automagic or renv, which captures the R version and libraries, is enough
 
 # Docker {background-color="#2780e3"}
 
@@ -27,21 +90,28 @@ bibliography: references.bib
 -   Download the desktop application [here](https://www.docker.com/products/docker-desktop/)
 -   Docker creates or downloads existing **images**
 -   Containers are created from images and are isolated compute environments
+-   There are other container technologies. A popular option in the HPC space is Singularity, which is now called Apptainer @kurtzer2017. Here we focus on Docker.
 :::
 
 ![](images/Docker_images.svg){fig-align="center"}
 
 ## Prebuilt images
 
-::: incremental
+. . .
+
 -   The R project has an [official r-base image](https://hub.docker.com/_/r-base/)
+
+. . .
+
 -   Images from the [Rocker Project](https://rocker-project.org/images/):
+
+. . .
+
     -   rocker/r-ver - alternative to r-base
     -   rocker/rstudio - R and RStudio
     -   rocker/tidyverse- R and tidyverse packages
     -   rocker/shiny - Shiny server built in
     -   many others
-:::
 
 ## Base image
 
@@ -76,7 +146,7 @@ The command line options are to remove the container on exit (-rm) and to create
 ## RStudio image
 
 ```{bash}
-docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio
+docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 rocker/rstudio
 ```
 
 . . .
@@ -154,76 +224,52 @@ CMD ["Rscript", "myscript.R"]
 -   Volumes are folders on your local file system which are accessible to containers
 
 ```{bash}
-docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 -v  $(pwd):/home/rstudio/data rocker/rstudio
+# MacOS and Linux
+docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  $(pwd):/home/rstudio/data rocker/rstudio
+# Windows
+docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  %cd%:/home/rstudio/data rocker/rstudio
 ```
 
-# Why?
+# Worked Example
 
-## Developers
+## Aim
 
--   Software developers sometimes wrote code which only ran on their machine
--   That could be a problem
+* Create a reproducible R Markdown document
 
-. . .
+# Next steps
 
-![](images/works_on_my_machine.jpeg){fig-align="center"}
-
-## Developers
-
-![](images/docker_born.png){fig-align="center"}
-
-## Developers
-
--   Developers could build and update images
--   These image are used in production
--   Like containers on a ship
-
-![](images/moby-logo.png){fig-align="center"}
-
-## Researchers
-
-How does this help research?
-
-. . .
-
--   Aids computational reproducibility [@boettiger2015]
-
-. . .
-
--   Allows other to run code without having to install lots of dependencies [@eglen2017a]
-
-. . .
-
--   Language agnostic and used widely [@pittard2020]
-
-. . .
-
--   Provides the basis for technologies like the research compendium [@marwick2018], binder [@getstar] and Dev Containers [@smith2022]
-
-## Researchers
-
-A few points to consider:
-
-. . .
-
--   Smaller images with very little software may be preferable as these are easier to maintain [@gruening2019]
-
-
-. . .
-
--   Build on a trustworthy base images such as the Rocker images [@boettiger2017]. Do we need to understand how the image is configured? For instance, the rocker/r-ver_4.2.1 dockerfile is [here](https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.2.1.Dockerfile)
-
-. . .
-
--   If you do not need a full container. Perhaps automagic or renv, which captures the R version and libraries, is enough
+-   There are R packages written to help create containers [@nüst2020b] though many of these did not work for me
+-   The R Bloggers site is a useful resource and has several articles on R and docker [link](https://cse.google.com/cse?cx=005359090438081006639%3Apaz69t-s8ua&ie=UTF-8&q=docker&sa=Go&bIDiEKaSr=%5BNwX%5DavgpyM&JtlBfjh=JlitU.M3&BNXYvMTtg=m6Py%40WO3Y0u&bIDiEKaSr=%5BNwX%5DavgpyM&JtlBfjh=JlitU.M3&BNXYvMTtg=m6Py%40WO3Y0u&bIDiEKaSr=%5BNwX%5DavgpyM&JtlBfjh=JlitU.M3&BNXYvMTtg=m6Py%40WO3Y0u)
+-   At UseR2022 there was a workshop on containers. The material is available via the [GitHub repo](https://github.com/rsangole/user2022-r-for-docker) and R Blogger has a [post by the author](https://www.r-bloggers.com/2022/06/user2022-best-practicesfor-shiny-apps-with-docker-and-more/)
+-   This [DevOps for Data Science](https://do4ds.com/chapters/sec1/docker.html) book goes lots of rather good detail 
 
 # Tools and next steps
 
 ## Containers
 
-Singularity Podman
+There are other container technologies.
 
-## R tools
+. . .
+
+-   Singularity, now called Apptainer, is popular in the HPC space [@kurtzer2017]
+
+. . .
+
+-   Podman is a RedHat product aimed at enterprises
+
+. . .
+
+Both provide isolated environments.
+
+## R packages
+
+@nÃ¼st2020a provided a survey of R packages for working with R and Docker (and is generally a good read). The packages they point to are:
+
+-   [Stevedore](https://github.com/richfitz/stevedore) - Sends commands to Docker. Required reticulate and the Python docker module. Recieved the error 'Did not find required python module 'docker''. Issue reported and not addressed in the past year...
+
+-   [Dockyard](https://github.com/thebioengineer/dockyard) - Aims to help you create and run a container. Last commit was 3 years ago and the example code on the github page does not work...
+
+-   [Dockermachine](https://github.com/cboettig/dockermachine) - Last updated 5 years ago.
 
 Package to manage docker containeres ContainerIt Other packages?
 

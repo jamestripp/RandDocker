@@ -416,154 +416,12 @@
 <section id="plan" class="title-slide slide level1 center">
 <h1>Plan</h1>
 <ul>
-<li>Docker?</li>
 <li>Why?</li>
+<li>Docker?</li>
 <li>Next Steps</li>
 </ul>
 </section>
 
-<section>
-<section id="docker" class="title-slide slide level1 center" data-background-color="#2780e3">
-<h1>Docker</h1>
-
-</section>
-<section id="what" class="slide level2">
-<h2>What?</h2>
-<div>
-<ul>
-<li class="fragment">Download the desktop application <a href="https://www.docker.com/products/docker-desktop/">here</a></li>
-<li class="fragment">Docker creates or downloads existing <strong>images</strong></li>
-<li class="fragment">Containers are created from images and are isolated compute environments</li>
-</ul>
-</div>
-
-<img data-src="images/Docker_images.svg" class="r-stretch quarto-figure-center"></section>
-<section id="prebuilt-images" class="slide level2">
-<h2>Prebuilt images</h2>
-<div>
-<ul>
-<li class="fragment">The R project has an <a href="https://hub.docker.com/_/r-base/">official r-base image</a></li>
-<li class="fragment">Images from the <a href="https://rocker-project.org/images/">Rocker Project</a>:
-<ul>
-<li class="fragment">rocker/r-ver - alternative to r-base</li>
-<li class="fragment">rocker/rstudio - R and RStudio</li>
-<li class="fragment">rocker/tidyverse- R and tidyverse packages</li>
-<li class="fragment">rocker/shiny - Shiny server built in</li>
-<li class="fragment">many others</li>
-</ul></li>
-</ul>
-</div>
-</section>
-<section id="base-image" class="slide level2">
-<h2>Base image</h2>
-<p>To download and run the official r-base image</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>docker run --rm -ti r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/r-base.png"></p>
-</figure>
-</div>
-</div><div class="column" style="width:50%;">
-<ol type="1">
-<li><p>Image downloaded</p></li>
-<li><p>Container created from image</p></li>
-<li><p>Terminal enters container</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The command line options are to remove the container on exit (-rm) and to create a command line interface with interactivity (-ti)</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="rstudio-image" class="slide level2">
-<h2>RStudio image</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/rstudio_container.png"></p>
-</div><div class="column" style="width:50%;">
-<ul>
-<li><p>Downloads image, creates and terminal enters container</p></li>
-<li><p>The container provides access to RStudio via localhost:8787</p></li>
-<li><p>You now have an isolated RStudio install</p></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Command line options are remove the container on exit (-rm), create a command line interface (-ti), set environment variables (-e) and set the port (-p) so that connecting via port 8787 will connect to port 8787 in the container.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="custom-images" class="slide level2">
-<h2>Custom images</h2>
-<ul>
-<li>Docker images are created from dockerfiles. A sample dockerfile is below<sup>1</sup>.</li>
-</ul>
-<div class="fragment">
-<div class="sourceCode" id="cb3" data-code-line-numbers="1-6|1-2|3-4|5|6|1-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>FROM rocker<span class="op">/</span>verse:<span class="fl">3.5.2</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>LABEL maintainer<span class="op">=</span><span class="st">"o2r"</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># CRAN packages skipped because they are in the base image: knitr</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>RUN [<span class="st">"install2.r"</span>, <span class="st">"fortunes"</span>]</span>
-<span id="cb3-5"><a href="#cb3-5"></a>WORKDIR <span class="op">/</span>payload<span class="op">/</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>CMD [<span class="st">"R"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<ul>
-<li>To build the image, go to the folder containing the dockerfile and run.</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>docker build -t jamestripp/myimage .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<ul>
-<li>Finally, to create a container and jump into it.</li>
-</ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>docker run --rm -ti jamestripp/myimage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<ul>
-<li>You can publish images to the Docker Hub (or another registry) for others to use (see instructions <a href="https://jsta.github.io/r-docker-tutorial/04-Dockerhub.html">here</a> and <a href="https://docs.docker.com/docker-hub/">here</a>)</li>
-</ul>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Sample taken from <a href="https://github.com/o2r-project/containerit" class="uri">https://github.com/o2r-project/containerit</a></p></li></ol></aside></section>
-<section id="local-files" class="slide level2">
-<h2>Local files</h2>
-<ul>
-<li>You can also copy files when an image is created</li>
-</ul>
-<div class="sourceCode" id="cb6" data-code-line-numbers="1-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>FROM r<span class="op">-</span>base</span>
-<span id="cb6-2"><a href="#cb6-2"></a>COPY . <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>myscripts</span>
-<span id="cb6-3"><a href="#cb6-3"></a>WORKDIR <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>myscripts</span>
-<span id="cb6-4"><a href="#cb6-4"></a>CMD [<span class="st">"Rscript"</span>, <span class="st">"myscript.R"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<ul>
-<li>Volumes are folders on your local file system which are accessible to containers</li>
-</ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>docker run --rm -ti -e PASSWORD=yourpassword -p 8787:8787 -v  $(pwd):/home/rstudio/data rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section></section>
 <section>
 <section id="why" class="title-slide slide level1 center">
 <h1>Why?</h1>
@@ -630,15 +488,191 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Build on a trustworthy base images such as the Rocker images <span class="citation" data-cites="boettiger2017">(<a href="#/references" role="doc-biblioref" onclick="">Boettiger and Eddelbuettel 2017</a>)</span>. Do we need to understand how the image is configured? For instance, the rocker/r-ver_4.2.1 dockerfile is <a href="https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.2.1.Dockerfile">here</a></li>
+<li>Use trustworthy images such as Rocker images <span class="citation" data-cites="boettiger2017">(<a href="#/references" role="doc-biblioref" onclick="">Boettiger and Eddelbuettel 2017</a>)</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>If you do not need a full container. Perhaps automagic or renv, which captures the R version and libraries, is enough</li>
+<li>Do we need to understand how the image is configured? For instance, the rocker/r-ver_4.2.1 dockerfile is <a href="https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.2.1.Dockerfile">here</a></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Perhaps automagic or renv, which captures the R version and libraries, is enough</li>
 </ul>
 </div>
 </section></section>
+<section>
+<section id="docker" class="title-slide slide level1 center" data-background-color="#2780e3">
+<h1>Docker</h1>
+
+</section>
+<section id="what" class="slide level2">
+<h2>What?</h2>
+<div>
+<ul>
+<li class="fragment">Download the desktop application <a href="https://www.docker.com/products/docker-desktop/">here</a></li>
+<li class="fragment">Docker creates or downloads existing <strong>images</strong></li>
+<li class="fragment">Containers are created from images and are isolated compute environments</li>
+<li class="fragment">There are other container technologies. A popular option in the HPC space is Singularity, which is now called Apptainer <span class="citation" data-cites="kurtzer2017">Kurtzer, Sochat, and Bauer (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span>. Here we focus on Docker.</li>
+</ul>
+</div>
+
+<img data-src="images/Docker_images.svg" class="r-stretch quarto-figure-center"></section>
+<section id="prebuilt-images" class="slide level2">
+<h2>Prebuilt images</h2>
+<div class="fragment">
+<ul>
+<li>The R project has an <a href="https://hub.docker.com/_/r-base/">official r-base image</a></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Images from the <a href="https://rocker-project.org/images/">Rocker Project</a>:</li>
+</ul>
+</div>
+<div class="fragment">
+<pre><code>-   rocker/r-ver - alternative to r-base
+-   rocker/rstudio - R and RStudio
+-   rocker/tidyverse- R and tidyverse packages
+-   rocker/shiny - Shiny server built in
+-   many others</code></pre>
+</div>
+</section>
+<section id="base-image" class="slide level2">
+<h2>Base image</h2>
+<p>To download and run the official r-base image</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>docker run --rm -ti r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/r-base.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ol type="1">
+<li><p>Image downloaded</p></li>
+<li><p>Container created from image</p></li>
+<li><p>Terminal enters container</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>The command line options are to remove the container on exit (-rm) and to create a command line interface with interactivity (-ti)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="rstudio-image" class="slide level2">
+<h2>RStudio image</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="images/rstudio_container.png"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Downloads image, creates and terminal enters container</p></li>
+<li><p>The container provides access to RStudio via localhost:8787</p></li>
+<li><p>You now have an isolated RStudio install</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Command line options are remove the container on exit (-rm), create a command line interface (-ti), set environment variables (-e) and set the port (-p) so that connecting via port 8787 will connect to port 8787 in the container.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="custom-images" class="slide level2">
+<h2>Custom images</h2>
+<ul>
+<li>Docker images are created from dockerfiles. A sample dockerfile is below<sup>1</sup>.</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb4" data-code-line-numbers="1-6|1-2|3-4|5|6|1-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>FROM rocker<span class="op">/</span>verse:<span class="fl">3.5.2</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>LABEL maintainer<span class="op">=</span><span class="st">"o2r"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># CRAN packages skipped because they are in the base image: knitr</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>RUN [<span class="st">"install2.r"</span>, <span class="st">"fortunes"</span>]</span>
+<span id="cb4-5"><a href="#cb4-5"></a>WORKDIR <span class="op">/</span>payload<span class="op">/</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>CMD [<span class="st">"R"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li>To build the image, go to the folder containing the dockerfile and run.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>docker build -t jamestripp/myimage .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Finally, to create a container and jump into it.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>docker run --rm -ti jamestripp/myimage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li>You can publish images to the Docker Hub (or another registry) for others to use (see instructions <a href="https://jsta.github.io/r-docker-tutorial/04-Dockerhub.html">here</a> and <a href="https://docs.docker.com/docker-hub/">here</a>)</li>
+</ul>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Sample taken from <a href="https://github.com/o2r-project/containerit" class="uri">https://github.com/o2r-project/containerit</a></p></li></ol></aside></section>
+<section id="local-files" class="slide level2">
+<h2>Local files</h2>
+<ul>
+<li>You can also copy files when an image is created</li>
+</ul>
+<div class="sourceCode" id="cb7" data-code-line-numbers="1-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>FROM r<span class="op">-</span>base</span>
+<span id="cb7-2"><a href="#cb7-2"></a>COPY . <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>myscripts</span>
+<span id="cb7-3"><a href="#cb7-3"></a>WORKDIR <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>myscripts</span>
+<span id="cb7-4"><a href="#cb7-4"></a>CMD [<span class="st">"Rscript"</span>, <span class="st">"myscript.R"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<ul>
+<li>Volumes are folders on your local file system which are accessible to containers</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a># MacOS and Linux</span>
+<span id="cb8-2"><a href="#cb8-2"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  $(pwd):/home/rstudio/data rocker/rstudio</span>
+<span id="cb8-3"><a href="#cb8-3"></a># Windows</span>
+<span id="cb8-4"><a href="#cb8-4"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  %cd%:/home/rstudio/data rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="worked-example" class="title-slide slide level1 center">
+<h1>Worked Example</h1>
+
+</section>
+<section id="aim" class="slide level2">
+<h2>Aim</h2>
+<ul>
+<li>Create a reproducible R Markdown document</li>
+</ul>
+</section></section>
+<section id="next-steps" class="title-slide slide level1 center">
+<h1>Next steps</h1>
+<ul>
+<li>There are R packages written to help create containers <span class="citation" data-cites="n">(<a href="#/references" role="doc-biblioref" onclick=""><strong>n?</strong></a>)</span> though many of these did not work for me</li>
+<li>The R Bloggers site is a useful resource and has several articles on R and docker <a href="https://cse.google.com/cse?cx=005359090438081006639%3Apaz69t-s8ua&amp;ie=UTF-8&amp;q=docker&amp;sa=Go&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u">link</a></li>
+<li>At UseR2022 there was a workshop on containers. The material is available via the <a href="https://github.com/rsangole/user2022-r-for-docker">GitHub repo</a> and R Blogger has a <a href="https://www.r-bloggers.com/2022/06/user2022-best-practicesfor-shiny-apps-with-docker-and-more/">post by the author</a></li>
+<li>This <a href="https://do4ds.com/chapters/sec1/docker.html">DevOps for Data Science</a> book goes lots of rather good detail</li>
+</ul>
+</section>
+
 <section>
 <section id="tools-and-next-steps" class="title-slide slide level1 center">
 <h1>Tools and next steps</h1>
@@ -646,10 +680,29 @@
 </section>
 <section id="containers" class="slide level2">
 <h2>Containers</h2>
-<p>Singularity Podman</p>
+<p>There are other container technologies.</p>
+<div class="fragment">
+<ul>
+<li>Singularity, now called Apptainer, is popular in the HPC space <span class="citation" data-cites="kurtzer2017">(<a href="#/references" role="doc-biblioref" onclick="">Kurtzer, Sochat, and Bauer 2017</a>)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Podman is a RedHat product aimed at enterprises</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Both provide isolated environments.</p>
+</div>
 </section>
-<section id="r-tools" class="slide level2">
-<h2>R tools</h2>
+<section id="r-packages" class="slide level2">
+<h2>R packages</h2>
+<p><span class="citation" data-cites="nüst2020a">Nüst et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span> provided a survey of R packages for working with R and Docker (and is generally a good read). The packages they point to are:</p>
+<ul>
+<li><p><a href="https://github.com/richfitz/stevedore">Stevedore</a> - Sends commands to Docker. Required reticulate and the Python docker module. Recieved the error ‘Did not find required python module ’docker’’. Issue reported and not addressed in the past year…</p></li>
+<li><p><a href="https://github.com/thebioengineer/dockyard">Dockyard</a> - Aims to help you create and run a container. Last commit was 3 years ago and the example code on the github page does not work…</p></li>
+<li><p><a href="https://github.com/cboettig/dockermachine">Dockermachine</a> - Last updated 5 years ago.</p></li>
+</ul>
 <p>Package to manage docker containeres ContainerIt Other packages?</p>
 </section>
 <section id="going-further" class="slide level2">
@@ -685,8 +738,14 @@ Eglen, Stephen J., Ben Marwick, Yaroslav O. Halchenko, Michael Hanke, Shoaib Suf
 <div id="ref-gruening2019" class="csl-entry" role="doc-biblioentry">
 Gruening, Bjorn, Olivier Sallou, Pablo Moreno, Felipe da Veiga Leprevost, Hervé Ménager, Dan Søndergaard, Hannes Röst, et al. 2019. <span>“Recommendations for the Packaging and Containerizing of Bioinformatics Software.”</span> <a href="https://doi.org/10.12688/f1000research.15140.2">https://doi.org/10.12688/f1000research.15140.2</a>.
 </div>
+<div id="ref-kurtzer2017" class="csl-entry" role="doc-biblioentry">
+Kurtzer, Gregory M., Vanessa Sochat, and Michael W. Bauer. 2017. <span>“Singularity: Scientific Containers for Mobility of Compute.”</span> <em>PLOS ONE</em> 12 (5): e0177459. <a href="https://doi.org/10.1371/journal.pone.0177459">https://doi.org/10.1371/journal.pone.0177459</a>.
+</div>
 <div id="ref-marwick2018" class="csl-entry" role="doc-biblioentry">
 Marwick, Ben, Carl Boettiger, and Lincoln Mullen. 2018. <span>“Packaging Data Analytical Work Reproducibly Using r (and Friends).”</span> <em>The American Statistician</em> 72 (1): 80–88. <a href="https://doi.org/10.1080/00031305.2017.1375986">https://doi.org/10.1080/00031305.2017.1375986</a>.
+</div>
+<div id="ref-nüst2020a" class="csl-entry" role="doc-biblioentry">
+Nüst, Daniel, Dirk Eddelbuettel, Dom Bennett, Robrecht Cannoodt, Dav Clark, Gergely Daróczi, Mark Edmondson, et al. 2020. <span>“The Rockerverse: Packages and Applications for Containerisation with R.”</span> <em>The R Journal</em> 12 (1): 437–61. <a href="https://journal.r-project.org/archive/2020/RJ-2020-007/index.html">https://journal.r-project.org/archive/2020/RJ-2020-007/index.html</a>.
 </div>
 <div id="ref-pittard2020" class="csl-entry" role="doc-biblioentry">
 Pittard, W. Stephen, and Shuzhao Li. 2020. <span>“The Essential Toolbox of Data Science: Python, R, Git, and Docker.”</span> In, edited by Shuzhao Li, 265–311. Methods in Molecular Biology. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-0239-3_15">https://doi.org/10.1007/978-1-0716-0239-3_15</a>.
