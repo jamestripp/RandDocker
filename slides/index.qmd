@@ -96,27 +96,27 @@ How does this help research?
 
 ## What?
 
-![](images/ddocker6.svg)
+![](images/d6.png)
 
 ## What?
 
-![](images/ddocker5.svg)
+![](images/d5.png)
 
 ## What?
 
-![](images/ddocker4.svg)
+![](images/d4.png)
 
 ## What?
 
-![](images/ddocker3.svg)
+![](images/d3.png)
 
 ## What?
 
-![](images/ddocker2.svg)
+![](images/d2.png)
 
 ## What?
 
-![](images/ddocker1.svg)
+![](images/d1.png)
 
 ## R images on DockerHub
 
