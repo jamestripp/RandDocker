@@ -413,6 +413,30 @@
   <p class="institute">Senior Research Software Engineer, IT Services (University of Warwick)</p>
 </section>
 
+<section id="who-am-i" class="title-slide slide level1 center">
+<h1>Who am I?</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/james.png" alt="James Tripp" width="250"></p>
+</figure>
+</div>
+<p><strong>James Tripp</strong></p>
+<p><em>Research Software Engineer</em></p>
+<p><a href="mailto:james.tripp@warwick.ac.uk" class="email">james.tripp@warwick.ac.uk</a></p>
+</div><div class="column" style="width:50%;">
+<div>
+<ul>
+<li class="fragment">Researcher in Cognitive Science</li>
+<li class="fragment">Senior Academic Technologist @ <a href="https://warwick.ac.uk/fac/cross_fac/cim/">Interdisciplinary Centre</a></li>
+<li class="fragment">Senior Research Software Engineer @ <a href="https://warwick.ac.uk/fac/arts/research/digitalhumanities/team/">IT Services</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
 <section id="plan" class="title-slide slide level1 center">
 <h1>Plan</h1>
 <ul>
@@ -447,13 +471,23 @@
 <img data-src="images/docker_born.png" class="r-stretch quarto-figure-center"></section>
 <section id="developers-2" class="slide level2">
 <h2>Developers</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li>Developers could build and update images</li>
-<li>These image are used in production</li>
-<li>Like containers on a ship</li>
+<li>Developers could build and update <em>images</em></li>
+<li><em>Images</em> are stored in a registry</li>
+<li>Production servers download <em>images</em></li>
+<li>Copies of these <em>images</em> called <em>containers</em> are used in production</li>
 </ul>
-
-<img data-src="images/moby-logo.png" class="r-stretch quarto-figure-center"></section>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/moby-logo.png" width="400"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="researchers" class="slide level2">
 <h2>Researchers</h2>
 <p>How does this help research?</p>
@@ -474,31 +508,7 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Provides the basis for technologies like the research compendium <span class="citation" data-cites="marwick2018">(<a href="#/references" role="doc-biblioref" onclick="">Marwick, Boettiger, and Mullen 2018</a>)</span>, binder <span class="citation" data-cites="getstar">(<a href="#/references" role="doc-biblioref" onclick=""><span>“Get Started with Binder <span></span> Binder 0.1b Documentation,”</span> n.d.</a>)</span> and Dev Containers <span class="citation" data-cites="smith2022">(<a href="#/references" role="doc-biblioref" onclick="">Smith 2022</a>)</span></li>
-</ul>
-</div>
-</section>
-<section id="researchers-1" class="slide level2">
-<h2>Researchers</h2>
-<p>A few points to consider:</p>
-<div class="fragment">
-<ul>
-<li>Smaller images with very little software may be preferable as these are easier to maintain <span class="citation" data-cites="gruening2019">(<a href="#/references" role="doc-biblioref" onclick="">Gruening et al. 2019</a>)</span></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Use trustworthy images such as Rocker images <span class="citation" data-cites="boettiger2017">(<a href="#/references" role="doc-biblioref" onclick="">Boettiger and Eddelbuettel 2017</a>)</span>.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Do we need to understand how the image is configured? For instance, the rocker/r-ver_4.2.1 dockerfile is <a href="https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.2.1.Dockerfile">here</a></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Perhaps automagic or renv, which captures the R version and libraries, is enough</li>
+<li>Provides the basis for technologies like the research compendium <span class="citation" data-cites="marwick2018">(<a href="#/references" role="doc-biblioref" onclick="">Marwick, Boettiger, and Mullen 2018</a>)</span>, binder <span class="citation" data-cites="getstar">(<a href="#/references" role="doc-biblioref" onclick=""><span>“Get Started with Binder <span></span> Binder 0.1b Documentation,”</span> n.d.</a>)</span> and dev containers <span class="citation" data-cites="smith2022">(<a href="#/references" role="doc-biblioref" onclick="">Smith 2022</a>)</span></li>
 </ul>
 </div>
 </section></section>
@@ -509,18 +519,30 @@
 </section>
 <section id="what" class="slide level2">
 <h2>What?</h2>
-<div>
-<ul>
-<li class="fragment">Download the desktop application <a href="https://www.docker.com/products/docker-desktop/">here</a></li>
-<li class="fragment">Docker creates or downloads existing <strong>images</strong></li>
-<li class="fragment">Containers are created from images and are isolated compute environments</li>
-<li class="fragment">There are other container technologies. A popular option in the HPC space is Singularity, which is now called Apptainer <span class="citation" data-cites="kurtzer2017">Kurtzer, Sochat, and Bauer (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span>. Here we focus on Docker.</li>
-</ul>
-</div>
 
-<img data-src="images/Docker_images.svg" class="r-stretch quarto-figure-center"></section>
-<section id="prebuilt-images" class="slide level2">
-<h2>Prebuilt images</h2>
+<img data-src="images/ddocker6.svg" class="r-stretch"></section>
+<section id="what-1" class="slide level2">
+<h2>What?</h2>
+
+<img data-src="images/ddocker5.svg" class="r-stretch"></section>
+<section id="what-2" class="slide level2">
+<h2>What?</h2>
+
+<img data-src="images/ddocker4.svg" class="r-stretch"></section>
+<section id="what-3" class="slide level2">
+<h2>What?</h2>
+
+<img data-src="images/ddocker3.svg" class="r-stretch"></section>
+<section id="what-4" class="slide level2">
+<h2>What?</h2>
+
+<img data-src="images/ddocker2.svg" class="r-stretch"></section>
+<section id="what-5" class="slide level2">
+<h2>What?</h2>
+
+<img data-src="images/ddocker1.svg" class="r-stretch"></section>
+<section id="r-images-on-dockerhub" class="slide level2">
+<h2>R images on DockerHub</h2>
 <div class="fragment">
 <ul>
 <li>The R project has an <a href="https://hub.docker.com/_/r-base/">official r-base image</a></li>
@@ -528,7 +550,7 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Images from the <a href="https://rocker-project.org/images/">Rocker Project</a>:</li>
+<li><a href="https://rocker-project.org/images/">Rocker Project</a> has lots of images:</li>
 </ul>
 </div>
 <div class="fragment">
@@ -541,7 +563,7 @@
 </section>
 <section id="base-image" class="slide level2">
 <h2>Base image</h2>
-<p>To download and run the official r-base image</p>
+<p>To use the official image</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>docker run --rm -ti r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <div class="columns">
@@ -553,7 +575,7 @@
 </div>
 </div><div class="column" style="width:50%;">
 <ol type="1">
-<li><p>Image downloaded</p></li>
+<li><p>The r-base image downloaded</p></li>
 <li><p>Container created from image</p></li>
 <li><p>Terminal enters container</p></li>
 </ol>
@@ -584,7 +606,7 @@
 <ul>
 <li><p>Downloads image, creates and terminal enters container</p></li>
 <li><p>The container provides access to RStudio via localhost:8787</p></li>
-<li><p>You now have an isolated RStudio install</p></li>
+<li><p>You now have an isolated RStudio container running</p></li>
 </ul>
 </div>
 </div>
@@ -608,12 +630,10 @@
 <li>Docker images are created from dockerfiles. A sample dockerfile is below<sup>1</sup>.</li>
 </ul>
 <div class="fragment">
-<div class="sourceCode" id="cb4" data-code-line-numbers="1-6|1-2|3-4|5|6|1-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>FROM rocker<span class="op">/</span>verse:<span class="fl">3.5.2</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>LABEL maintainer<span class="op">=</span><span class="st">"o2r"</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># CRAN packages skipped because they are in the base image: knitr</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>RUN [<span class="st">"install2.r"</span>, <span class="st">"fortunes"</span>]</span>
-<span id="cb4-5"><a href="#cb4-5"></a>WORKDIR <span class="op">/</span>payload<span class="op">/</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>CMD [<span class="st">"R"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-code-line-numbers="1-4|1|2|3|4|1-4"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>FROM r-base</span>
+<span id="cb4-2"><a href="#cb4-2"></a>COPY . /usr/local/src/myscripts</span>
+<span id="cb4-3"><a href="#cb4-3"></a>WORKDIR /usr/local/src/myscripts</span>
+<span id="cb4-4"><a href="#cb4-4"></a>CMD ["Rscript", "myscript.R"]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
@@ -628,99 +648,176 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>docker run --rm -ti jamestripp/myimage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
 <ul>
 <li>You can publish images to the Docker Hub (or another registry) for others to use (see instructions <a href="https://jsta.github.io/r-docker-tutorial/04-Dockerhub.html">here</a> and <a href="https://docs.docker.com/docker-hub/">here</a>)</li>
 </ul>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Sample taken from <a href="https://github.com/o2r-project/containerit" class="uri">https://github.com/o2r-project/containerit</a></p></li></ol></aside></section>
+</div>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Sample taken from <a href="https://hub.docker.com/_/r-base/" class="uri">https://hub.docker.com/_/r-base/</a></p></li></ol></aside></section>
 <section id="local-files" class="slide level2">
 <h2>Local files</h2>
 <ul>
-<li>You can also copy files when an image is created</li>
+<li>Copying files when the image is created. Baked into the image.</li>
 </ul>
-<div class="sourceCode" id="cb7" data-code-line-numbers="1-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>FROM r<span class="op">-</span>base</span>
-<span id="cb7-2"><a href="#cb7-2"></a>COPY . <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>myscripts</span>
-<span id="cb7-3"><a href="#cb7-3"></a>WORKDIR <span class="op">/</span>usr<span class="op">/</span>local<span class="op">/</span>src<span class="op">/</span>myscripts</span>
-<span id="cb7-4"><a href="#cb7-4"></a>CMD [<span class="st">"Rscript"</span>, <span class="st">"myscript.R"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7" data-code-line-numbers="2-3"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>FROM r-base</span>
+<span id="cb7-2"><a href="#cb7-2"></a>COPY . /usr/local/src/myscripts</span>
+<span id="cb7-3"><a href="#cb7-3"></a>WORKDIR /usr/local/src/myscripts</span>
+<span id="cb7-4"><a href="#cb7-4"></a>CMD ["Rscript", "myscript.R"]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <ul>
-<li>Volumes are folders on your local file system which are accessible to containers</li>
+<li>Volumes are folders on your local file system which are accessible to a container</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a># MacOS and Linux</span>
 <span id="cb8-2"><a href="#cb8-2"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  $(pwd):/home/rstudio/data rocker/rstudio</span>
 <span id="cb8-3"><a href="#cb8-3"></a># Windows</span>
-<span id="cb8-4"><a href="#cb8-4"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  %cd%:/home/rstudio/data rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  absolute_path:/home/rstudio/data rocker/rstudio</span>
+<span id="cb8-5"><a href="#cb8-5"></a>#May work on Windows</span>
+<span id="cb8-6"><a href="#cb8-6"></a>docker run --rm -ti -e DISABLE_AUTH="true" -p 8787:8787 -v  %cd%:/home/rstudio/data rocker/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Where absolute_path is the full Windows path</p>
 </div>
 </section></section>
 <section>
-<section id="worked-example" class="title-slide slide level1 center">
-<h1>Worked Example</h1>
+<section id="example" class="title-slide slide level1 center">
+<h1>Example</h1>
 
 </section>
-<section id="aim" class="slide level2">
-<h2>Aim</h2>
+<section id="fortune" class="slide level2">
+<h2>Fortune</h2>
+<p>myscript.R</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource {text} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a>library(fortunes)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>print(fortune())</span>
+<span id="cb9-4"><a href="#cb9-4"></a>print(fortune())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>dockerfile</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource {text} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a>FROM r-base</span>
+<span id="cb10-2"><a href="#cb10-2"></a>COPY . /usr/local/src/myscripts</span>
+<span id="cb10-3"><a href="#cb10-3"></a>WORKDIR /usr/local/src/myscripts</span>
+<span id="cb10-4"><a href="#cb10-4"></a>RUN ["install2.r", "fortune"]</span>
+<span id="cb10-5"><a href="#cb10-5"></a>CMD ["Rscript", "myscript.R"]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Build and run it</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href="#cb11-1"></a>docker build -t jamestripp/fortune .</span>
+<span id="cb11-2"><a href="#cb11-2"></a>docker run --rm -ti jamestripp/fortune</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fortune-1" class="slide level2">
+<h2>Fortune</h2>
+
+<img data-src="images/fortune_example.png" class="r-stretch"></section>
+<section id="other-examples" class="slide level2">
+<h2>Other examples</h2>
+<div class="fragment">
 <ul>
-<li>Create a reproducible R Markdown document</li>
+<li><a href="https://jlintusaari.net/how-to-compile-r-markdown-documents-using-docker/">RMarkdown</a></li>
 </ul>
+</div>
+<div class="fragment">
+<ul>
+<li><a href="https://github.com/rsangole/user2022-r-for-docker/tree/main/04-docker-and-r/05-deploy-shiny-in-docker">Shiny apps</a></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><a href="https://github.com/rsangole/user2022-r-for-docker/tree/main/04-docker-and-r/04-deploy-models-in-docker">Deploying models</a></li>
+</ul>
+</div>
+</section>
+<section id="to-consider" class="slide level2">
+<h2>To consider</h2>
+<div class="fragment">
+<ul>
+<li>Changes in the base image can influence the images build upon them</li>
+<li>Ensure you use trustworthy images such as Rocker <span class="citation" data-cites="boettiger2017">(<a href="#/references" role="doc-biblioref" onclick="">Boettiger and Eddelbuettel 2017</a>)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Smaller images with very little software may be preferable as these are easier to maintain <span class="citation" data-cites="gruening2019">(<a href="#/references" role="doc-biblioref" onclick="">Gruening et al. 2019a</a>)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Containers are, perhaps, only part of a reproducible workflow<span class="citation" data-cites="mölder2021 gruening2019a">(<a href="#/references" role="doc-biblioref" onclick="">Mölder et al. 2021</a>; <a href="#/references" role="doc-biblioref" onclick="">Gruening et al. 2019b</a>)</span></li>
+<li>Do we need to replicate the entire computing environment? Perhaps automagic or renv, which captures the R version and libraries, is all we need… (see the previous <a href="https://ccamara.github.io/wrug-depedencies/slides.html#1">WRUG presentation by Carlos Camara Menoyo</a>)</li>
+</ul>
+</div>
 </section></section>
+<section>
 <section id="next-steps" class="title-slide slide level1 center">
 <h1>Next steps</h1>
-<ul>
-<li>There are R packages written to help create containers <span class="citation" data-cites="n">(<a href="#/references" role="doc-biblioref" onclick=""><strong>n?</strong></a>)</span> though many of these did not work for me</li>
-<li>The R Bloggers site is a useful resource and has several articles on R and docker <a href="https://cse.google.com/cse?cx=005359090438081006639%3Apaz69t-s8ua&amp;ie=UTF-8&amp;q=docker&amp;sa=Go&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u">link</a></li>
-<li>At UseR2022 there was a workshop on containers. The material is available via the <a href="https://github.com/rsangole/user2022-r-for-docker">GitHub repo</a> and R Blogger has a <a href="https://www.r-bloggers.com/2022/06/user2022-best-practicesfor-shiny-apps-with-docker-and-more/">post by the author</a></li>
-<li>This <a href="https://do4ds.com/chapters/sec1/docker.html">DevOps for Data Science</a> book goes lots of rather good detail</li>
-</ul>
-</section>
-
-<section>
-<section id="tools-and-next-steps" class="title-slide slide level1 center">
-<h1>Tools and next steps</h1>
 
 </section>
-<section id="containers" class="slide level2">
-<h2>Containers</h2>
-<p>There are other container technologies.</p>
+<section id="learning-materials" class="slide level2">
+<h2>Learning materials</h2>
 <div class="fragment">
 <ul>
-<li>Singularity, now called Apptainer, is popular in the HPC space <span class="citation" data-cites="kurtzer2017">(<a href="#/references" role="doc-biblioref" onclick="">Kurtzer, Sochat, and Bauer 2017</a>)</span></li>
+<li>Look through the <a href="https://cse.google.com/cse?cx=005359090438081006639%3Apaz69t-s8ua&amp;ie=UTF-8&amp;q=docker&amp;sa=Go&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u&amp;bIDiEKaSr=%5BNwX%5DavgpyM&amp;JtlBfjh=JlitU.M3&amp;BNXYvMTtg=m6Py%40WO3Y0u">R Blogger posts on Docker</a></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Podman is a RedHat product aimed at enterprises</li>
+<li>Work through the UserR2022 workshop by rsangole (<a href="https://github.com/rsangole/user2022-r-for-docker">repo</a>, <a href="https://www.r-bloggers.com/2022/06/user2022-best-practicesfor-shiny-apps-with-docker-and-more/">blog post</a>)</li>
 </ul>
 </div>
 <div class="fragment">
-<p>Both provide isolated environments.</p>
+<ul>
+<li>Read through the docker section in the <a href="https://do4ds.com/chapters/sec1/docker.html">DevOps for Data Science</a> book</li>
+</ul>
 </div>
 </section>
-<section id="r-packages" class="slide level2">
-<h2>R packages</h2>
-<p><span class="citation" data-cites="nüst2020a">Nüst et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span> provided a survey of R packages for working with R and Docker (and is generally a good read). The packages they point to are:</p>
+<section id="papers" class="slide level2">
+<h2>Papers</h2>
+<div class="fragment">
+<ul>
+<li>Some R packages are mentioned in <span class="citation" data-cites="nüst2020c">Nüst, Eddelbuettel, et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>. I was not able to get these packages working
 <ul>
 <li><p><a href="https://github.com/richfitz/stevedore">Stevedore</a> - Sends commands to Docker. Required reticulate and the Python docker module. Recieved the error ‘Did not find required python module ’docker’’. Issue reported and not addressed in the past year…</p></li>
 <li><p><a href="https://github.com/thebioengineer/dockyard">Dockyard</a> - Aims to help you create and run a container. Last commit was 3 years ago and the example code on the github page does not work…</p></li>
 <li><p><a href="https://github.com/cboettig/dockermachine">Dockermachine</a> - Last updated 5 years ago.</p></li>
+</ul></li>
 </ul>
-<p>Package to manage docker containeres ContainerIt Other packages?</p>
-</section>
-<section id="going-further" class="slide level2">
-<h2>Going further</h2>
-<p>Binder CI pipelines using virtual environments</p>
-</section>
-<section id="overview" class="slide level2">
-<h2>Overview</h2>
+</div>
+<div class="fragment">
 <ul>
-<li>point 1</li>
-<li>point 2</li>
-<li>point 3</li>
+<li><span class="citation" data-cites="nüst2020">Nüst, Sochat, et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span> outlines 10 rules for creating dockerfiles, talks about good practice and sign posts other tools</li>
 </ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="citation" data-cites="peikert2021">Peikert and Brandmaier (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span> offer a workflow for rendering markdown documents which includes a make file for dependencies</p></li>
+<li><p>Not an exhaustive list</p></li>
+</ul>
+</div>
+</section>
+<section id="tools" class="slide level2">
+<h2>Tools</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><a href="https://github.com/binder-examples/r"><strong>Binder</strong></a></p>
+<p>Run a docker container on a remote server. Place a button on your public github repo README.md.</p>
+<p><img data-src="images/binder-repo.png"></p>
+</div><div class="column" style="width:50%;">
+<p><a href="https://www.shinyproxy.io/"><strong>ShinyProxy</strong></a></p>
+<p>Spins up shiny containers with one container per user (see the <a href="https://www.r-bloggers.com/2019/11/deploying-r-shiny-apps-using-shinyproxy-on-windows-10-2/">R Bloggers post</a>)</p>
+<p><img data-src="images/shinyproxy.png"></p>
+</div>
+</div>
 </section></section>
+<section id="questions" class="title-slide slide level1 center">
+<h1>Questions?</h1>
+
+</section>
+
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div class="footer footer-default">
-<p>https://jamestripp.github.io/WRUG-RandDocker/</p>
+<p>https://jamestripp.github.io/RandDocker/</p>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-boettiger2015" class="csl-entry" role="doc-biblioentry">
@@ -736,16 +833,25 @@ Eglen, Stephen J., Ben Marwick, Yaroslav O. Halchenko, Michael Hanke, Shoaib Suf
 <span>“Get Started with Binder <span></span> Binder 0.1b Documentation.”</span> n.d. <a href="https://mybinder.readthedocs.io/en/latest/introduction.html">https://mybinder.readthedocs.io/en/latest/introduction.html</a>.
 </div>
 <div id="ref-gruening2019" class="csl-entry" role="doc-biblioentry">
-Gruening, Bjorn, Olivier Sallou, Pablo Moreno, Felipe da Veiga Leprevost, Hervé Ménager, Dan Søndergaard, Hannes Röst, et al. 2019. <span>“Recommendations for the Packaging and Containerizing of Bioinformatics Software.”</span> <a href="https://doi.org/10.12688/f1000research.15140.2">https://doi.org/10.12688/f1000research.15140.2</a>.
+Gruening, Bjorn, Olivier Sallou, Pablo Moreno, Felipe da Veiga Leprevost, Hervé Ménager, Dan Søndergaard, Hannes Röst, et al. 2019a. <span>“Recommendations for the Packaging and Containerizing of Bioinformatics Software.”</span> <a href="https://doi.org/10.12688/f1000research.15140.2">https://doi.org/10.12688/f1000research.15140.2</a>.
 </div>
-<div id="ref-kurtzer2017" class="csl-entry" role="doc-biblioentry">
-Kurtzer, Gregory M., Vanessa Sochat, and Michael W. Bauer. 2017. <span>“Singularity: Scientific Containers for Mobility of Compute.”</span> <em>PLOS ONE</em> 12 (5): e0177459. <a href="https://doi.org/10.1371/journal.pone.0177459">https://doi.org/10.1371/journal.pone.0177459</a>.
+<div id="ref-gruening2019a" class="csl-entry" role="doc-biblioentry">
+———, et al. 2019b. <span>“Recommendations for the Packaging and Containerizing of Bioinformatics Software.”</span> <a href="https://doi.org/10.12688/f1000research.15140.2">https://doi.org/10.12688/f1000research.15140.2</a>.
 </div>
 <div id="ref-marwick2018" class="csl-entry" role="doc-biblioentry">
 Marwick, Ben, Carl Boettiger, and Lincoln Mullen. 2018. <span>“Packaging Data Analytical Work Reproducibly Using r (and Friends).”</span> <em>The American Statistician</em> 72 (1): 80–88. <a href="https://doi.org/10.1080/00031305.2017.1375986">https://doi.org/10.1080/00031305.2017.1375986</a>.
 </div>
-<div id="ref-nüst2020a" class="csl-entry" role="doc-biblioentry">
+<div id="ref-mölder2021" class="csl-entry" role="doc-biblioentry">
+Mölder, Felix, Kim Philipp Jablonski, Brice Letcher, Michael B. Hall, Christopher H. Tomkins-Tinch, Vanessa Sochat, Jan Forster, et al. 2021. <span>“Sustainable Data Analysis with Snakemake.”</span> <em>F1000Research</em> 10 (April): 33. <a href="https://doi.org/10.12688/f1000research.29032.2">https://doi.org/10.12688/f1000research.29032.2</a>.
+</div>
+<div id="ref-nüst2020c" class="csl-entry" role="doc-biblioentry">
 Nüst, Daniel, Dirk Eddelbuettel, Dom Bennett, Robrecht Cannoodt, Dav Clark, Gergely Daróczi, Mark Edmondson, et al. 2020. <span>“The Rockerverse: Packages and Applications for Containerisation with R.”</span> <em>The R Journal</em> 12 (1): 437–61. <a href="https://journal.r-project.org/archive/2020/RJ-2020-007/index.html">https://journal.r-project.org/archive/2020/RJ-2020-007/index.html</a>.
+</div>
+<div id="ref-nüst2020" class="csl-entry" role="doc-biblioentry">
+Nüst, Daniel, Vanessa Sochat, Ben Marwick, Stephen J. Eglen, Tim Head, Tony Hirst, and Benjamin D. Evans. 2020. <span>“Ten Simple Rules for Writing Dockerfiles for Reproducible Data Science.”</span> <em>PLOS Computational Biology</em> 16 (11): e1008316. <a href="https://doi.org/10.1371/journal.pcbi.1008316">https://doi.org/10.1371/journal.pcbi.1008316</a>.
+</div>
+<div id="ref-peikert2021" class="csl-entry" role="doc-biblioentry">
+Peikert, Aaron, and Andreas M. Brandmaier. 2021. <span>“A Reproducible Data Analysis Workflow With R Markdown, Git, Make, and Docker.”</span> <em>Quantitative and Computational Methods in Behavioral Sciences</em>, May, 1–27. <a href="https://doi.org/10.5964/qcmb.3763">https://doi.org/10.5964/qcmb.3763</a>.
 </div>
 <div id="ref-pittard2020" class="csl-entry" role="doc-biblioentry">
 Pittard, W. Stephen, and Shuzhao Li. 2020. <span>“The Essential Toolbox of Data Science: Python, R, Git, and Docker.”</span> In, edited by Shuzhao Li, 265–311. Methods in Molecular Biology. New York, NY: Springer US. <a href="https://doi.org/10.1007/978-1-0716-0239-3_15">https://doi.org/10.1007/978-1-0716-0239-3_15</a>.
@@ -914,7 +1020,7 @@ Smith, David. 2022. <span>“Easy r Tutorials with Dev Containers | r-Bloggers.�
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
